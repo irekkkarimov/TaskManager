@@ -6,7 +6,7 @@ public class Project
     private int _Key;
     private string _Title;
     private Customer _customer;
-    private List<Task> _tasks;
+    public List<Task> tasks;
 
     public double InitialCost
     {

@@ -4,7 +4,6 @@ public class TaskManagerApp
 {
     public List<Customer> Customers = new List<Customer>();
     public List<Employee> Employees = new List<Employee>();
-    public List<Task> Tasks = new List<Task>();
     public List<Position> Positions = new List<Position>();
     public List<Project> Projects = new List<Project>();
 
@@ -85,7 +84,7 @@ public class TaskManagerApp
     {
         int c = 1;
         Console.WriteLine($"Список задач к проекту {Projects[i]}:");
-        foreach (var task in Tasks)
+        foreach (var task in Projects[i].tasks)
         {
             Console.WriteLine($"{c}. {task.Number}");
             c++;
@@ -95,5 +94,10 @@ public class TaskManagerApp
     public void AddNewProject(string title, int key, Customer customer)
     {
         Projects.Add(new Project(title, key, customer));
+    }
+
+    public void AddNewTask(string description, int number, Employee employee, bool billable, int projectId)
+    {
+        Projects[projectId].tasks.Add(new Task() {Description = description, Number = number, Employee = employee, Billable = billable,});
     }
 }

@@ -9,6 +9,7 @@ public class Position
     public int BaseHourlyRate => _BaseHourlyRate;
 
     public int Code => _Code;
+    
 
     public string Name => _Name;
 

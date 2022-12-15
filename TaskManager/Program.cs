@@ -66,10 +66,70 @@ while (!exit)
                 }
                 case 2: 
                 {
-                    taskManager.PrintTasks(i - 1);
-                    Console.WriteLine("1. Просмотреть подробности проекта");
-                    Console.WriteLine("2. Выйтив меню");
-                    var w = int.Parse(Console.ReadLine());
+                    if (taskManager.Projects[i - 1].tasks.Count == 0)
+                    {
+                        Console.WriteLine("Нет задач к проекту");
+                        ToClosePage();
+                    }
+                    else
+                    {
+                        taskManager.PrintTasks(i - 1);
+                        Console.WriteLine("1. Просмотреть описание задачи");
+                        Console.WriteLine("2. Создать новую задачу");
+                        Console.WriteLine("3. Редактировать задачу");
+                        Console.WriteLine("4. Удалить задачу");
+                        var w = int.Parse(Console.ReadLine());
+                        switch (w)
+                        {
+
+
+                            case 1:
+                            {
+                                Console.WriteLine("Введите номер задачи, описание которой хотите посмотреть");
+                                taskManager.PrintTasks(i - 1);
+                                var e = int.Parse(Console.ReadLine());
+                                Console.WriteLine(taskManager.Projects[i - 1].tasks[e - 1]);
+                                ToClosePage();
+                                break;
+                            }
+
+                            case 2:
+                            {
+                                Console.WriteLine("Введите описание задачи");
+                                var description = Console.ReadLine();
+
+                                var number = taskManager.Projects[i - 1].tasks.Count;
+
+                                Console.WriteLine("Выберите ответственного сотрудника");
+                                taskManager.PrintEmployees();
+                                var employee = taskManager.Employees[int.Parse(Console.ReadLine()) - 1];
+
+                                Console.WriteLine("Будет ли задача отдельно оплачиваться клиентов?\n1. Да\n2. Нет");
+                                var choose = int.Parse(Console.ReadLine());
+                                var billable = choose == 1;
+                                taskManager.AddNewTask(description, number, employee, billable, i - 1);
+                                Console.Clear();
+                                break;
+                            }
+                            case 3:
+                            {
+                                break;
+                            }
+                            case 4:
+                            {
+                                Console.WriteLine("Введите номер задачи, которую хотите удалить");
+                                taskManager.PrintTasks(i - 1);
+                                var r = int.Parse(Console.ReadLine());
+                                var taskToRemove = taskManager.Projects[i - 1].tasks[r - 1];
+                                taskManager.Projects[i - 1].tasks.Remove(taskToRemove);
+                                Console.WriteLine("Задача была удалена");
+                                ToClosePage();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+
                     break;
                 }
             }
@@ -85,7 +145,7 @@ while (!exit)
             var key = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Выберите клиента");
-            taskManager.PrintEmployees();
+            taskManager.PrintCustomers();
             var customer = int.Parse(Console.ReadLine());
 
             taskManager.AddNewProject(title, key, taskManager.Customers[customer - 1]);

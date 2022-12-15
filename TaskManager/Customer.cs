@@ -21,7 +21,7 @@ public class Customer
     {
         _ContactEmail = email;
         _ContactPerson = person;
-        _ContactPerson = person;
+        _ContactPhone = phone;
         _Name = name;
     }
 
