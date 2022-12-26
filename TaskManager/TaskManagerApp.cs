@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 namespace TaskManager;
 
 public class TaskManagerApp
@@ -15,11 +17,11 @@ public class TaskManagerApp
     {
         Customers.Clear();
         Customers.Add(new Customer("FirstCustomer@gmail.ru",
-            "Иванов Иван Иванович", "+89870000001", "01"));
+            "Иванов Иван Иванович", "+89870000001", "Bars Group"));
         Customers.Add(new Customer("SecondCustomer@mail.ru",
-            "Андреев Андрей Андреевич", "+79880000002", "02"));
+            "Андреев Андрей Андреевич", "+79880000002", "Tinkoff Bank"));
         Customers.Add(new Customer("ThirdCustomer@yandex.ru",
-            "Владиславов Владислав Владиславович", "+89780000003", "03"));
+            "Владиславов Владислав Владиславович", "+89780000003", "Apple"));
         
         Positions.Clear();
         Positions.Add(new Position(300, 01, "Junior-Developer"));
@@ -28,11 +30,11 @@ public class TaskManagerApp
         Positions.Add(new Position(1000, 05, "Team-Leader"));
         
         Employees.Clear();
-        Employees.Add(new Employee("Дмитриенко Алексей Петрович", 110001, 1));
-        Employees.Add(new Employee("Иванов Дмитрий Иванович", 110002, 2));
-        Employees.Add(new Employee("Андреев Владислав Иванович", 110003, 3));
-        Employees.Add(new Employee("Владимиров Никита Андреевич", 110004, 4));
-        Employees.Add(new Employee("Андреев Владимир Петрович", 110005, 5));
+        Employees.Add(new Employee("Дмитриенко Алексей Петрович", 110001, 1, Positions[0]));
+        Employees.Add(new Employee("Иванов Дмитрий Иванович", 110002, 2, Positions[1]));
+        Employees.Add(new Employee("Андреев Владислав Иванович", 110003, 3, Positions[2]));
+        Employees.Add(new Employee("Владимиров Никита Андреевич", 110004, 4, Positions[3]));
+        Employees.Add(new Employee("Андреев Владимир Петрович", 110005, 5, Positions[1]));
         
     }
 
@@ -83,10 +85,10 @@ public class TaskManagerApp
     public void PrintTasks(int i)
     {
         int c = 1;
-        Console.WriteLine($"Список задач к проекту {Projects[i]}:");
+        Console.WriteLine($"Список задач к проекту {Projects[i].Title}:");
         foreach (var task in Projects[i].tasks)
         {
-            Console.WriteLine($"{c}. {task.Number}");
+            Console.WriteLine($"{c} Задача");
             c++;
         }
     }
@@ -96,8 +98,8 @@ public class TaskManagerApp
         Projects.Add(new Project(title, key, customer));
     }
 
-    public void AddNewTask(string description, int number, Employee employee, bool billable, int projectId)
+    public void AddNewTask(string description, int number, Employee employee, bool billable, int projectId, DateOnly dueDate)
     {
-        Projects[projectId].tasks.Add(new Task() {Description = description, Number = number, Employee = employee, Billable = billable,});
+        Projects[projectId].tasks.Add(new Task() {Description = description, Number = number, Employee = employee, Billable = billable, DueDate = dueDate});
     }
 }

@@ -16,16 +16,18 @@ public class Employee
     public int HourlyRate => _Hourlyrate;
     
 
-    public Employee(string fullName, int number, int rating)
+    public Employee(string fullName, int number, int rating, Position position)
     {
         _FullName = fullName;
         _Number = number;
         _Rating = rating;
+        _position = position;
+        _Hourlyrate = (int)Math.Round(position.BaseHourlyRate + position.BaseHourlyRate * 0.05 * (_Rating - 1));
     }
 
     public override string ToString()
     {
         return $"Сотрудник {FullName}: Табельный номер - {Number}," +
-               $" Должность - {Position}, Почасовая ставка - {HourlyRate}";
+               $" Должность - {Position.Name}, Почасовая ставка - {HourlyRate}";
     }
 }
